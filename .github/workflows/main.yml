@@ -1,0 +1,22 @@
+name: SECCAP Monitor
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check SECCAP
+        run: |
+          curl -L https://seccap.dgcs.gos.pk/#/new-application > page.html
+
+          if grep -q "ADMISSIONS FOR THE SESSION 2026-27 ARE NOW CLOSED" page.html; then
+            echo "Portal is still closed."
+          else
+            echo "🚨 PORTAL MAY HAVE OPENED!"
+            exit 1
+          fi
