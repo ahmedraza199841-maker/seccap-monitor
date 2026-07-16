@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Check SECCAP
         run: |
+
+              run: |
+        curl -L "https://seccap.dgcs.gos.pk/" > page.html
+        grep -q "New Application" page.html
           curl -L https://seccap.dgcs.gos.pk/#/new-application > page.html
 
           if grep -q "ADMISSIONS FOR THE SESSION 2026-27 ARE NOW CLOSED" page.html; then
